@@ -23,6 +23,7 @@
   </head>
 
   <body>
+  <h1>Bar on Rails</h1>
   <nav>
   <% if user_signed_in? %>
     <%= link_to 'Logout', destroy_user_session_path, method: :delete %>
@@ -30,6 +31,12 @@
     <%= link_to 'Login', new_user_session_path %>
     <%= link_to 'Sign Up', new_user_registration_path %>
   <% end %>
+  <%= link_to 'Home', root_path, style: "margin-right: 15px;" %>
+      <%= link_to 'Sections', sections_path, style: "margin-right: 15px;" %>
+      <%= link_to 'Products', products_path, style: "margin-right: 15px;" %>
+      <%= link_to 'Stocktakes', stocktakes_path, style: "margin-right: 15px;" %>
+      <%= link_to 'New Stocktake', new_stocktake_path, style: "margin-right: 15px;" %>
+      <%= link_to 'Reports', reports_path, style: "margin-right: 15px;" %>
 </nav>
     <%= yield %>
   </body>

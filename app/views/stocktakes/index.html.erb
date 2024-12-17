@@ -3,14 +3,16 @@
 <% content_for :title, "Stocktakes" %>
 
 <h1>Stocktakes</h1>
+<%= link_to "New stocktake", new_stocktake_path %>
 
 <div id="stocktakes">
   <% @stocktakes.each do |stocktake| %>
-    <%= render stocktake %>
     <p>
+    <%= render stocktake %>
+    
       <%= link_to "Show this stocktake", stocktake %>
     </p>
   <% end %>
 </div>
 
-<%= link_to "New stocktake", new_stocktake_path %>
+

@@ -1,16 +1,48 @@
-<p style="color: green"><%= notice %></p>
+<h1>Stocktake Comparison Report</h1>
 
-<% content_for :title, "Products" %>
+<!-- Form to Select Stocktakes -->
+<%= form_with url: reports_path, method: :get do %>
+  <div>
+    <%= label_tag :stocktake_a_id, "Select Stocktake A:" %>
+    <%= select_tag :stocktake_a_id, options_from_collection_for_select(@stocktakes, :id, :date, params[:stocktake_a_id]), prompt: "Choose Stocktake" %>
+  </div>
 
-<h1>Products</h1>
+  <div>
+    <%= label_tag :stocktake_b_id, "Select Stocktake B:" %>
+    <%= select_tag :stocktake_b_id, options_from_collection_for_select(@stocktakes, :id, :date, params[:stocktake_b_id]), prompt: "Choose Stocktake" %>
+  </div>
 
-<div id="products">
-  <% @products.each do |product| %>
-    <%= render product %>
-    <p>
-      <%= link_to "Show this product", product %>
-    </p>
-  <% end %>
-</div>
+  <%= submit_tag "Compare", class: "btn btn-primary" %>
+<% end %>
 
-<%= link_to "New product", new_product_path %>
+<hr>
+
+<!-- Display Comparison Results -->
+<% if @comparison.present? %>
+  <h2>Comparison Results</h2>
+  <table>
+    <tr>
+      <th>Product</th>
+      <th>Stocktake A Quantity</th>
+      <th>Stocktake B Quantity</th>
+      <th>Variation</th>
+    </tr>
+    <% @comparison.each do |item| %>
+      <tr>
+        <td><%= item[:product] %></td>
+        <td><%= item[:quantity_a] %></td>
+        <td><%= item[:quantity_b] %></td>
+        <td>
+          <%= item[:variation] %>
+          <% if item[:variation] > 0 %>
+            <span style="color: green;">(Increase)</span>
+          <% elsif item[:variation] < 0 %>
+            <span style="color: red;">(Decrease)</span>
+          <% else %>
+            <span>(No Change)</span>
+          <% end %>
+        </td>
+      </tr>
+    <% end %>
+  </table>
+<% end %>
