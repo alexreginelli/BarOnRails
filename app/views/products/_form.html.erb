@@ -1,32 +1,29 @@
 <%= form_with(model: product) do |form| %>
   <% if product.errors.any? %>
-    <div style="color: red">
-      <h2><%= pluralize(product.errors.count, "error") %> prohibited this product from being saved:</h2>
-
+    <div class="alert alert-danger">
+      <h4><%= pluralize(product.errors.count, "error") %> prevented this product from being saved:</h4>
       <ul>
-        <% product.errors.each do |error| %>
-          <li><%= error.full_message %></li>
+        <% product.errors.full_messages.each do |message| %>
+          <li><%= message %></li>
         <% end %>
       </ul>
     </div>
   <% end %>
 
   <div>
-    <%= form.label :name, style: "display: block" %>
-    <%= form.text_field :name %>
+    <%= form.label :name, "Product Name", class: "form-label" %>
+    <%= form.text_field :name, class: "form-control" %>
   </div>
 
   <div>
-    <%= form.label :unit, style: "display: block" %>
-    <%= form.text_field :unit %>
+    <%= form.label :unit, "Unit", class: "form-label" %>
+    <%= form.text_field :unit, class: "form-control" %>
   </div>
 
   <div>
-  <%= form.label :section_id, "Section", style: "display: block" %>
-  <%= form.collection_select :section_id, Section.all, :id, :name, prompt: "Select a Section" %>
-</div>
-
-  <div>
-    <%= form.submit %>
+    <%= form.label :section_id, "Section", class: "form-label" %>
+    <%= form.collection_select :section_id, Section.all, :id, :name, { prompt: "Select a Section" }, { class: "form-select" } %>
   </div>
+
+  <%= form.submit "Save Product", class: "btn" %>
 <% end %>

@@ -1,18 +1,18 @@
-<p style="color: green"><%= notice %></p>
+<p class="notice"><%= notice %></p>
 
 <% content_for :title, "Stocktakes" %>
 
 <h1>Stocktakes</h1>
-<%= link_to "New stocktake", new_stocktake_path %>
 
-<div id="stocktakes">
+<%= link_to "New stocktake", new_stocktake_path, class: "btn btn-primary" %>
+
+<div id="stocktakes" class="stocktakes-list">
   <% @stocktakes.each do |stocktake| %>
-    <p>
-    <%= render stocktake %>
-    
-      <%= link_to "Show this stocktake", stocktake %>
-    </p>
+    <div class="stocktake-item">
+      <%= render stocktake %>
+      <p>
+        <%= link_to "Show this stocktake", stocktake, class: "btn btn-secondary" %>
+      </p>
+    </div>
   <% end %>
 </div>
-
-

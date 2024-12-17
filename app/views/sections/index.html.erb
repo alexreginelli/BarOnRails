@@ -1,17 +1,18 @@
-<p style="color: green"><%= notice %></p>
+<p class="notice"><%= notice %></p>
 
 <% content_for :title, "Sections" %>
 
 <h1>Sections</h1>
-<%= link_to "New section", new_section_path %>
 
-<div id="sections">
+<%= link_to "New section", new_section_path, class: "btn btn-primary" %>
+
+<div id="sections" class="sections-list">
   <% @sections.each do |section| %>
-    <%= render section %>
-    <p>
-      <%= link_to "Show this section", section %>
-    </p>
+    <div class="section-item">
+      <%= render section %>
+      <p>
+        <%= link_to "Show this section", section, class: "btn btn-secondary" %>
+      </p>
+    </div>
   <% end %>
 </div>
-
-

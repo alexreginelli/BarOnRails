@@ -18,6 +18,10 @@ gem "stimulus-rails"
 gem "jbuilder"
 # user authentication
 gem 'devise'
+# Bootstrap gem
+#gem 'bootstrap', '~> 5.3.3'
+#gem 'sassc-rails'
+#gem 'popper_js', '~> 2.11'
 
 
 # Use Active Model has_secure_password [https://guides.rubyonrails.org/active_model_basics.html#securepassword]
