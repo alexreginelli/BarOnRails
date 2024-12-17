@@ -1,11 +1,22 @@
-<% content_for :title, "New stocktake entry" %>
+<h1>New Stocktake Entry</h1>
 
-<h1>New stocktake entry</h1>
+<%= form_with(model: @stocktake_entry, local: true) do |form| %>
+  <div>
+    <%= form.label :stocktake_id, "Stocktake" %>
+    <%= form.collection_select :stocktake_id, Stocktake.all, :id, :date, prompt: "Select Stocktake" %>
+  </div>
 
-<%= render "form", stocktake_entry: @stocktake_entry %>
+  <div>
+    <%= form.label :product_id, "Product" %>
+    <%= form.collection_select :product_id, Product.all, :id, :name, prompt: "Select Product" %>
+  </div>
 
-<br>
+  <div>
+    <%= form.label :quantity %>
+    <%= form.number_field :quantity, step: 0.1 %>
+  </div>
 
-<div>
-  <%= link_to "Back to stocktake entries", stocktake_entries_path %>
-</div>
+  <div>
+    <%= form.submit "Save Entry" %>
+  </div>
+<% end %>

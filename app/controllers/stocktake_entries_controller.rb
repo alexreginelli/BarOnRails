@@ -1,5 +1,6 @@
 class StocktakeEntriesController < ApplicationController
-  before_action :set_stocktake_entry, only: %i[ show edit update destroy ]
+  #before_action :set_stocktake_entry, only: %i[ show edit update destroy ]
+  before_action :set_stocktake_entry, only: [:show, :edit, :update, :destroy]
 
   # GET /stocktake_entries or /stocktake_entries.json
   def index
@@ -21,10 +22,10 @@ class StocktakeEntriesController < ApplicationController
 
   # POST /stocktake_entries or /stocktake_entries.json
   def create
-    def create
-      stocktake_id = params[:stocktake_id]
-  
-      # Loop through submitted product quantities and save them
+    stocktake_id = params[:stocktake_id]
+    stocktake_id = params[:stocktake_id]
+
+    if params[:stocktake].present?
       params[:stocktake].each do |product_id, quantity|
         next if quantity.blank? # Skip if no quantity is entered
   
@@ -34,9 +35,11 @@ class StocktakeEntriesController < ApplicationController
           quantity: quantity
         )
       end
-  
-      # Redirect to the stocktake show page
       redirect_to stocktake_path(stocktake_id), notice: "Stocktake saved successfully!"
+    else
+      # Handle missing parameters
+      flash[:alert] = "No products or quantities were submitted."
+      redirect_to stocktake_path(stocktake_id)
     end
   end
 
@@ -71,6 +74,7 @@ class StocktakeEntriesController < ApplicationController
 
     # Only allow a list of trusted parameters through.
     def stocktake_entry_params
-      params.expect(stocktake_entry: [ :product_id, :stocktake_id, :quantity ])
+      #params.expect(stocktake_entry: [ :product_id, :stocktake_id, :quantity ])
+      params.require(:stocktake_entry).permit(:stocktake_id, :product_id, :quantity)
     end
 end

@@ -1,23 +1,32 @@
 Rails.application.routes.draw do
   get "reports/index"
-  resources :stocktake_entries, only: [:create]
+
+  # Stocktake Entries
+  resources :stocktake_entries, except: [:edit, :update, :destroy] do
+    collection do
+      post :create
+    end
+  end
+
+  # Routes for edit, update, and destroy explicitly defined
+  get    'stocktake_entries/:id/edit',  to: 'stocktake_entries#edit', as: 'edit_stocktake_entry'
+  patch  'stocktake_entries/:id',       to: 'stocktake_entries#update'
+  delete 'stocktake_entries/:id',       to: 'stocktake_entries#destroy'
+
+  # Other Resources
   resources :stocktakes
   resources :products
   resources :sections
+
+  # Devise for Users
   devise_for :users
 
+  # Reports
   get 'reports', to: 'reports#index'
-  root 'stocktakes#index'
-  # Define your application routes per the DSL in https://guides.rubyonrails.org/routing.html
 
-  # Reveal health status on /up that returns 200 if the app boots with no exceptions, otherwise 500.
-  # Can be used by load balancers and uptime monitors to verify that the app is live.
+  # Health Check
   get "up" => "rails/health#show", as: :rails_health_check
 
-  # Render dynamic PWA files from app/views/pwa/* (remember to link manifest in application.html.erb)
-  # get "manifest" => "rails/pwa#manifest", as: :pwa_manifest
-  # get "service-worker" => "rails/pwa#service_worker", as: :pwa_service_worker
-
-  # Defines the root path route ("/")
-  root "stocktakes#index"
+  # Root Route
+  root 'stocktakes#index'
 end
