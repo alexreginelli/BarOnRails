@@ -1,0 +1,22 @@
+<%= form_with(model: stocktake) do |form| %>
+  <% if stocktake.errors.any? %>
+    <div style="color: red">
+      <h2><%= pluralize(stocktake.errors.count, "error") %> prohibited this stocktake from being saved:</h2>
+
+      <ul>
+        <% stocktake.errors.each do |error| %>
+          <li><%= error.full_message %></li>
+        <% end %>
+      </ul>
+    </div>
+  <% end %>
+
+  <div>
+    <%= form.label :date, style: "display: block" %>
+    <%= form.date_field :date %>
+  </div>
+
+  <div>
+    <%= form.submit %>
+  </div>
+<% end %>

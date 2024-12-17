@@ -1,0 +1,13 @@
+<h1>Section: <%= @section.name %></h1>
+
+<h2>Products in this Section</h2>
+<ul>
+  <% @section.products.each do |product| %>
+    <li>
+      <strong><%= product.name %></strong> - Unit: <%= product.unit %>
+      <%= link_to 'Show', product_path(product) %>
+    </li>
+  <% end %>
+</ul>
+
+<%= link_to 'Add Product to Section', new_product_path %>

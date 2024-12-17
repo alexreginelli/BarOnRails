@@ -1,0 +1,32 @@
+<%= form_with(model: stocktake_entry) do |form| %>
+  <% if stocktake_entry.errors.any? %>
+    <div style="color: red">
+      <h2><%= pluralize(stocktake_entry.errors.count, "error") %> prohibited this stocktake_entry from being saved:</h2>
+
+      <ul>
+        <% stocktake_entry.errors.each do |error| %>
+          <li><%= error.full_message %></li>
+        <% end %>
+      </ul>
+    </div>
+  <% end %>
+
+  <div>
+    <%= form.label :product_id, style: "display: block" %>
+    <%= form.text_field :product_id %>
+  </div>
+
+  <div>
+    <%= form.label :stocktake_id, style: "display: block" %>
+    <%= form.text_field :stocktake_id %>
+  </div>
+
+  <div>
+    <%= form.label :quantity, style: "display: block" %>
+    <%= form.text_field :quantity %>
+  </div>
+
+  <div>
+    <%= form.submit %>
+  </div>
+<% end %>

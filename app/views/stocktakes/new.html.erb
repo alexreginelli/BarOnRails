@@ -1,0 +1,11 @@
+<% content_for :title, "New stocktake" %>
+
+<h1>New stocktake</h1>
+
+<%= render "form", stocktake: @stocktake %>
+
+<br>
+
+<div>
+  <%= link_to "Back to stocktakes", stocktakes_path %>
+</div>

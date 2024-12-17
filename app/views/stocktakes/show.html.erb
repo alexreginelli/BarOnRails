@@ -1,0 +1,42 @@
+<h1>Stocktake for <%= @stocktake.date %></h1>
+
+<!-- Display Saved Quantities -->
+<% @sections.each do |section| %>
+  <h2>Section: <%= section.name %></h2>
+
+  <table>
+    <tr>
+      <th>Product</th>
+      <th>Saved Quantity</th>
+    </tr>
+    <% section.products.each do |product| %>
+      <tr>
+        <td><%= product.name %></td>
+        <td>
+          <%= @stocktake_entries[product.id]&.first&.quantity || 0 %>
+        </td>
+      </tr>
+    <% end %>
+  </table>
+<% end %>
+
+<hr>
+
+<!-- Form to Input or Update Quantities -->
+<h2>Enter Quantities</h2>
+
+<%= form_with url: stocktake_entries_path, method: :post do %>
+  <% @sections.each do |section| %>
+    <h3>Section: <%= section.name %></h3>
+
+    <% section.products.each do |product| %>
+      <div>
+        <%= label_tag "product_#{product.id}", product.name %>
+        <%= number_field_tag "stocktake[#{product.id}]", @stocktake_entries[product.id]&.first&.quantity || 0, step: 0.1 %>
+      </div>
+    <% end %>
+  <% end %>
+
+  <%= hidden_field_tag :stocktake_id, @stocktake.id %>
+  <%= submit_tag "Save Stocktake", class: "btn btn-primary" %>
+<% end %>

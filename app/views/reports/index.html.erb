@@ -1,0 +1,18 @@
+<h1>Inventory Report</h1>
+
+<table>
+  <tr>
+    <th>Product</th>
+    <th>Previous Quantity</th>
+    <th>Current Quantity</th>
+    <th>Variation</th>
+  </tr>
+  <% @products.each do |product| %>
+    <tr>
+      <td><%= product.name %></td>
+      <td><%= @previous_stock[product.id] || 0 %></td>
+      <td><%= @current_stock[product.id] || 0 %></td>
+      <td><%= (@current_stock[product.id] || 0) - (@previous_stock[product.id] || 0) %></td>
+    </tr>
+  <% end %>
+</table>

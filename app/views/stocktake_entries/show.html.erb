@@ -1,0 +1,10 @@
+<p style="color: green"><%= notice %></p>
+
+<%= render @stocktake_entry %>
+
+<div>
+  <%= link_to "Edit this stocktake entry", edit_stocktake_entry_path(@stocktake_entry) %> |
+  <%= link_to "Back to stocktake entries", stocktake_entries_path %>
+
+  <%= button_to "Destroy this stocktake entry", @stocktake_entry, method: :delete %>
+</div>
