@@ -5,19 +5,11 @@ default: &default
 
 development:
   <<: *default
-  database: bar_inventory_development
-  username: postgres
-  password: password
-  host: localhost
-  port: 5433
+  database: myapp_development
 
 test:
   <<: *default
-  database: bar_inventory_test
-  username: postgres
-  password: password
-  host: localhost
-  port: 5433
+  database: myapp_test
 
 production:
   <<: *default
